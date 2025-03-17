@@ -1,0 +1,47 @@
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+node_modules
+dist
+dist-ssr
+*.local
+
+# Editor directories and files
+.vscode/*
+!.vscode/extensions.json
+.idea
+.DS_Store
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# node_modulesはGitに含めない
+node_modules/
+# Viteのビルド結果
+dist/
+# ログ
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+# 環境変数ファイル
+.env
+.env.local
+# Docker関連
+docker-compose.override.yaml
+docker-compose.dev.yaml
+# IDE関連
+.vscode/
+.idea/
+# Mac関連
+.DS_Store
+# OS関連
+Thumbs.db
