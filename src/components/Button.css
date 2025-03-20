@@ -1,3 +1,8 @@
+@font-face {
+    font-family: "YDWBananaSlipPlus";
+    src: url("../../public/font/YDWbananaslipplus.otf");
+}
+
 .btn {
     padding: 10px 20px;
     font-size: 16px;
