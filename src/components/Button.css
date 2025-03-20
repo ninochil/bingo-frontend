@@ -8,6 +8,7 @@
     font-size: 16px;
     cursor: pointer;
     border: 5px solid #fefefe;
+    box-shadow: 5px 5px 5px 0 rgba(0, 0, 0, 0.3);
     border-radius: 15px;
     background-color: #6d9dc5;
     color: #fefefe;
