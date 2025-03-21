@@ -1,3 +1,14 @@
+/* tailwindをインポート */
+@import "tailwindcss";
+
+/* bananaフォントが全体で使えるように追加 */
+@font-face {
+  font-family: "YDWBananaSlipPlus";
+  src: url("../../public/font/YDWbananaslipplus.otf");
+  font-weight: normal;
+  font-style: normal;
+}
+
 :root {
   font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
