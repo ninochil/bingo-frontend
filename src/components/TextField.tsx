@@ -14,8 +14,8 @@ const TextField: React.FC<TextFieldProps> = ({
   onChange,
 }) => {
   return (
-    <div className="flex flex-col gap-2 w-[253px]">
-      {label && <label className="text-sm text-gray">{label}</label>}
+    <div className="flex flex-col gap-2 w-[253px] pb-4">
+      {label && <label className="flex justify-center font-banana text-sm text-gray">{label}</label>}
       <input
         type="text"
         value={value}
