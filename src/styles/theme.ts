@@ -10,11 +10,11 @@ const theme = {
     blue: '#6D9DC5',
     gray: '#4C4747',
     white: '#FEFEFE',
-    light_gray: '#77828B'
+    lightgray: '#77828B'
   },
 
   // fontSize : theme.fontSize.〇〇で使用できる
-  fontSizes: {
+  fontSize: {
     xs: '16px',
     sm: '20px',
     base: '28px',
