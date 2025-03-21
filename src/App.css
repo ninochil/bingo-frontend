@@ -7,13 +7,22 @@
     }
 }
 
+@font-face {
+    font-family: "YDWBananaSlipPlus";
+    src: url("../public/font/YDWbananaslipplus.otf");
+}
+
 @media (prefers-reduced-motion: no-preference) {
     a:nth-of-type(2) .logo {
         animation: logo-spin infinite 20s linear;
     }
 }
 
-.card {
+body {
+    font-family: "Noto Sans JP", sans-serif;
+}
+
+.global-card {
     padding: 2em;
 }
 

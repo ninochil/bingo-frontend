@@ -1,6 +1,6 @@
 @font-face {
     font-family: "YDWBananaSlipPlus";
-    src: url("../public/font/YDWbananaslipplus.otf");
+    src: url("../../public/font/YDWbananaslipplus.otf");
 }
 
 body {
@@ -13,18 +13,22 @@ body {
     font-family: "YDWBananaSlipPlus", sans-serif;
 }
 
-.container {
+.topPageContainer {
     background-color: #fefefe;
+    display: flex;
     border-radius: 24px;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-    width: 833px;
-    max-width: 700px;
+    width: 833px; /* 画像の幅に合わせる */
+    max-width: 90%; /* 必要なら調整 */
     padding: 40px;
     text-align: center;
+    flex-direction: column;
     justify-content: center;
+    align-items: center;
+    margin: auto; /* 画面中央配置 */
 }
 
-.title {
+.topPageTitle {
     color: #fefefe;
     -webkit-text-stroke: 3px #ff6f61; /* 枠線の太さと色 */
     -webkit-text-fill-color: #fefefe; /* 枠の内側の色 (必須) */
