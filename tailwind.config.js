@@ -25,7 +25,7 @@ module.exports = {
         lightgray: '#77828B'
       },
       fontFamily: {
-        banana: ['YDWBananaSlipPlus', 'sans-serif'],
+        sans: ['YDWBananaSlipPlus', 'sans-serif'],
       },
       // rounded
       borderRadius: {
