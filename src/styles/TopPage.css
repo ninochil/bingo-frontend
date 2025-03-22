@@ -10,7 +10,6 @@ body {
     justify-content: center;
     align-items: center;
     margin: 0;
-    font-family: "YDWBananaSlipPlus", sans-serif;
 }
 
 .topPageContainer {
@@ -26,6 +25,7 @@ body {
     justify-content: center;
     align-items: center;
     margin: auto; /* 画面中央配置 */
+    font-family: "YDWBananaSlipPlus", sans-serif;
 }
 
 .topPageTitle {
@@ -42,7 +42,7 @@ body {
     margin-bottom: 40px;
 }
 
-.button-container {
+.topPagebutton-container {
     display: flex;
     gap: 50px;
     justify-content: center;
@@ -66,7 +66,7 @@ body {
         font-size: 1rem;
     }
 
-    .button-container {
+    .topPagebutton-container {
         flex-direction: column;
         gap: 10px;
     }
@@ -83,7 +83,7 @@ body {
         font-size: 1rem;
     }
 
-    .button-container {
+    .topPagebutton-container {
         flex-direction: column; /* 縦方向に配置 */
         align-items: center; /* 水平方向の中央揃え */
         justify-content: center; /* 垂直方向の中央揃え */

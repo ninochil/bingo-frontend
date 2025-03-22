@@ -30,7 +30,7 @@ const TopPage: React.FC = () => {
                     その「質問」が「良かったかどうか」の投票を全体に取り、「良かった！」と
                     判断された人のカードのみ、マスがあきます。
                 </p>
-                <div className="button-container">
+                <div className="topPagebutton-container">
                     <Button onClick={stanbyClick}>ルームを作成</Button>
                     <Button onClick={joinClick}>ルームに参加</Button>
                 </div>
