@@ -66,7 +66,7 @@ const PlayerJoinPage: React.FC = () => {
           <div className='flex flex-col items-center gap-3 pt-4'>
             <NewButton 
                 label="すすむ"
-                to="../player-standby"
+                to="../PlayerStandbyPage"
                 direction="forward"
                 disabled={!isButtonActive}
             />

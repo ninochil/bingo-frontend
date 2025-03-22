@@ -13,7 +13,7 @@ const TopPage: React.FC = () => {
     }
 
     const joinClick = () => {
-        navigate('/JoinRoom')
+        navigate('/PlayerJoinPage')
     }
     return (
         <div className="container">
