@@ -1,41 +1,60 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from "react";
+
+const WS_URL = "ws://localhost:5002/ws/game";
 
 const PlayerBingoPage: React.FC = () => {
-  // ビンゴカードのテキスト
-  const initialBingoCard = [
-    "質問1", "質問2", "質問3",
-    "質問4", "質問5", "質問6",
-    "質問7", "質問8", "質問9"
-  ];
-
-  const [highlightedValue, setHighlightedValue] = useState<string | null>(null); // ハイライトする値
+  const socketRef = useRef<WebSocket | null>(null);
+  const [questions, setQuestions] = useState<string[]>([]);
+  const [markedQuestions, setMarkedQuestions] = useState<string[]>([]);
 
   useEffect(() => {
-    // WebSocketやAPIから送信された値を想定 (3秒後に "質問5" を受け取る)
-    setTimeout(() => {
-      const incomingValue = "質問5";  // 値が送られてきたと仮定
-      setHighlightedValue(incomingValue);
-    }, 3000); // 3秒後に値を受け取る
+    const socket = new WebSocket(WS_URL);
+    socketRef.current = socket;
+
+    socket.onopen = () => {
+      console.log("Connected to WebSocket");
+      const userId = sessionStorage.getItem("userId");
+      const userName = sessionStorage.getItem("userName");
+      socket.send(JSON.stringify({ type: "joinGame", userId, userName }));
+    };
+
+    socket.onmessage = (event) => {
+      const data = JSON.parse(event.data);
+      console.log("Received message:", data);
+
+      if (data.type === "bingoQuestions") {
+        setQuestions(data.questions);
+      } else if (data.type === "markQuestion") {
+        setMarkedQuestions((prev) => [...prev, data.question]);
+      }
+    };
+
+    socket.onerror = (error) => console.error("WebSocket Error:", error);
+    socket.onclose = () => console.log("Disconnected from WebSocket");
+
+    return () => {
+      socket.close();
+      socketRef.current = null;
+    };
   }, []);
 
   return (
-    <div className="h-screen flex justify-center items-center bg-green-200">
+    <div className="bg-green-200 flex h-screen items-center justify-center">
       <div className="text-center">
-        <h1 className="text-4xl font-bold mb-10">プレイヤー1のカード</h1>
-        <div className="bg-white rounded-lg p-4 shadow-lg inline-block">
+        <h1 className="mb-10 text-4xl font-bold">あなたのビンゴカード</h1>
+        <div className="inline-block rounded-lg bg-white p-4 shadow-lg">
           <div className="grid grid-cols-3 gap-4">
-            {initialBingoCard.map((text, index) => (
+            {questions.map((text, index) => (
               <div
                 key={index}
-                className={`w-32 h-32 p-2 text-center border-4 border-yellow rounded-md text-sm flex justify-center items-center transition-all duration-500
-                ${
-                  text === highlightedValue
-                    ? 'bg-yellow border-yellow'  // 背景と枠を黄色にする
-                    : 'bg-white border-yellow-400'
+                className={`flex h-32 w-32 items-center justify-center rounded-md border-4 p-2 text-center text-sm transition-all duration-500 ${
+                  markedQuestions.includes(text)
+                    ? "border-yellow bg-yellow"
+                    : "border-yellow-400 bg-white"
                 }`}
                 style={{
                   fontSize: `${calculateFontSize(text)}rem`,
-                  wordBreak: 'break-word', // 長い文字列を改行
+                  wordBreak: "break-word",
                 }}
               >
                 {text}
@@ -43,15 +62,15 @@ const PlayerBingoPage: React.FC = () => {
             ))}
           </div>
         </div>
-        </div>
+      </div>
     </div>
-);
+  );
 };
 
-// 長さに応じてフォントサイズを調整 (改行対応)
+// ✅ 長さに応じてフォントサイズを調整（例: 長文は少し小さく）
 const calculateFontSize = (text: string): number => {
-  const maxLength = 8; // 8文字が基準
-  return text.length > maxLength ? 1.2 - (text.length - maxLength) * 0.1 : 1.2; // 長い場合サイズ調整
+  const maxLength = 8;
+  return text.length > maxLength ? 1.2 - (text.length - maxLength) * 0.1 : 1.2;
 };
 
 export default PlayerBingoPage;
