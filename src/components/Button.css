@@ -13,4 +13,14 @@
     background-color: #6d9dc5;
     color: #fefefe;
     font-family: "YDWBananaSlipPlus", sans-serif;
+    max-width: 100%;
+    box-sizing: border-box;
+}
+
+@media (max-width: 480px) {
+    .btn {
+        font-size: 0.9rem;
+        padding: 10px;
+        width: 60%; /* スマホでは少し小さく */
+    }
 }

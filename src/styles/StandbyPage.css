@@ -1,0 +1,152 @@
+@font-face {
+    font-family: "YDWBananaSlipPlus";
+    src: url("../../public/font/YDWbananaslipplus.otf");
+}
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    font-family: "YDWBananaSlipPlus", sans-serif;
+}
+
+.standbyPageContainer {
+    background-color: #a1d9b2; /* 淡い緑 */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+}
+
+.standbyPageCard {
+    background-color: #fefefe;
+    border-radius: 24px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    width: 1100px;
+    padding: 40px;
+    text-align: center;
+    display: flex;
+    flex-direction: row; /* 横並びにする */
+    justify-content: space-between; /* 左右に配置 */
+    align-items: flex-start; /* 上揃えにする */
+    min-height: 600px;
+}
+
+.standbyTitle {
+    color: #fefefe;
+    -webkit-text-stroke: 2px #ff6f61;
+    -webkit-text-fill-color: #fefefe;
+    font-size: 2rem;
+    font-weight: bold;
+    text-shadow: 2px 2px 0px #ffd1c1;
+    text-align: left;
+    margin-top: -20px;
+    white-space: nowrap;
+}
+
+.room-code-section {
+    margin: 30px;
+    justify-content: flex-start;
+    flex-direction: column;
+    width: auto;
+}
+
+.room-code-label {
+    font-size: 2rem;
+    color: #4c4747;
+}
+
+.room-code {
+    display: flex;
+    justify-content: flex-start;
+    margin-top: 10px;
+}
+
+.circle {
+    background-color: #ffd54f;
+    width: 120px; /* サイズを少し大きく */
+    height: 120px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 5rem; /* 数字を大きく */
+    font-weight: bold;
+    color: black;
+    text-shadow: 3px 3px 0px white, -3px -3px 0px white, 3px -3px 0px white,
+        -3px 3px 0px white;
+    border: none;
+    margin-left: -15px;
+}
+
+.wait-list {
+    margin: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.wait-list-label {
+    color: #333;
+    margin-bottom: 8px;
+}
+
+.wait-list-box {
+    border: 2px solid #ffa726;
+    width: 250px;
+    height: 350px;
+    border-radius: 8px;
+    margin: 10px auto;
+    align-items: end;
+}
+.content-container {
+    display: flex;
+    align-items: center;
+    gap: 40px; /* 間隔を設定 */
+    width: 100%;
+}
+
+.standbyPagebutton-container {
+    display: flex;
+    gap: 40px;
+    justify-content: center;
+    align-items: center;
+    position: absolute; /* 絶対位置を設定 */
+    bottom: 70px; /* 下からの距離を設定 */
+    left: 50%; /* 左からの距離を設定 */
+    transform: translateX(-50%); /* 中央に配置 */
+    width: calc(100% - 80px); /* コンテナの幅を調整してパディングを考慮 */
+}
+
+.cancel-button {
+    background-color: #b0bec5;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    padding: 10px 30px;
+    font-size: 1rem;
+    box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+}
+
+.start-button {
+    background-color: #8abad3ff;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    padding: 10px 30px;
+    font-size: 1rem;
+    box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+}
+
+.cancel-button:hover {
+    background-color: #90a4ae;
+}
+
+.start-button:hover {
+    background-color: #6a9abf;
+}
