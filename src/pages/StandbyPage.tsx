@@ -8,7 +8,7 @@ const StandbyPage: React.FC = () => {
     const navigate = useNavigate();
 
     const BingoClick = () => {
-        navigate('/BingoPage')
+        navigate('/BingoRoomPage')
     }
 
     const CancelClick = () => {
