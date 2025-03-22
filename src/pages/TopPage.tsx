@@ -19,15 +19,15 @@ const TopPage: React.FC = () => {
         <div className="topPageContainer">
             <div className="TopPageCard">
                 <h1 className="topPageTitle">びんごどん！</h1>
-                <p className="description">「びんごどん！」は3✖︎3マスに「質問」が並んでおり、ルーレットで当たった「質問」の<br />
+                <p className="description">「びんごどん！」は3✖︎3マスに「質問」が並んでおり、ルーレットで当たった「質問」の
                     マスをあけ、縦・横・斜めのいずれか一列を揃えるゲームです。
                 </p>
                 <p className="description">
-                    ルーレットで当たった「質問」をカードに記載されている人が「質問」に答えます。<br />
+                    ルーレットで当たった「質問」をカードに記載されている人が「質問」に答えます。
                     ただ、「質問」に答えたからと言って、必ずしもマスがあくとは限りません。
                 </p>
                 <p className="description">
-                    その「質問」が「良かったかどうか」の投票を全体に取り、「良かった！」と<br />
+                    その「質問」が「良かったかどうか」の投票を全体に取り、「良かった！」と
                     判断された人のカードのみ、マスがあきます。
                 </p>
                 <div className="button-container">
