@@ -8,8 +8,10 @@
 }
 
 @font-face {
-    font-family: "YDWBananaSlipPlus";
-    src: url("../public/font/YDWbananaslipplus.otf");
+    font-family: "YDWBananaSlipPlus";  
+    src: url("../../public/font/YDWbananaslipplus.otf");  
+    font-weight: normal;  
+    font-style: normal;  
 }
 
 @media (prefers-reduced-motion: no-preference) {
