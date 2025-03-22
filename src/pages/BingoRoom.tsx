@@ -48,9 +48,15 @@ const BingoRoom: React.FC = () => {
         <div className="flex flex-1 flex-col items-center justify-center">
           <div className="flex h-[300px] w-[300px] items-center justify-center rounded-full bg-yellow text-center shadow-custom">
             <p className="text-base font-bold leading-tight text-gray">
-              ルーレットを
-              <br />
-              回してね！
+              {selectedQuestion ? (
+                <>{selectedQuestion}</>
+              ) : (
+                <>
+                  ルーレットを
+                  <br />
+                  回してね！
+                </>
+              )}
             </p>
           </div>
           <button
@@ -65,7 +71,7 @@ const BingoRoom: React.FC = () => {
         <div className="flex flex-1 flex-col items-center justify-between">
           <div className="flex flex-col items-center">
             <p className="mb-2 text-xs font-bold text-gray">回答者リスト</p>
-            <div className="h-[300px] w-[300px] overflow-y-auto rounded-md border-sm border-orange bg-white p-4 text-center text-sm text-gray">
+            <div className="h-[500px] w-[300px] overflow-y-auto rounded-md border-sm border-orange bg-white p-4 text-center text-sm text-gray">
               {selectedQuestion ? (
                 matchedUsers.length > 0 ? (
                   <ul className="space-y-1">
@@ -81,10 +87,6 @@ const BingoRoom: React.FC = () => {
               )}
             </div>
           </div>
-
-          <button className="mt-4 rounded-sm bg-blue px-6 py-2 text-xs text-white shadow-custom">
-            投票結果を見る
-          </button>
         </div>
       </div>
     </div>
