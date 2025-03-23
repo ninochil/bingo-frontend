@@ -6,6 +6,8 @@ const BingoRoom: React.FC = () => {
   const socketRef = useRef<WebSocket | null>(null);
   const [selectedQuestion, setSelectedQuestion] = useState<string | null>(null);
   const [matchedUsers, setMatchedUsers] = useState<string[]>([]);
+  const [voteResult, setVoteResult] = useState<string | null>(null);
+  const [canShowResult, setCanShowResult] = useState(false);
 
   useEffect(() => {
     const socket = new WebSocket(WS_URL);
@@ -18,6 +20,13 @@ const BingoRoom: React.FC = () => {
       if (data.type === "rouletteInfo") {
         setSelectedQuestion(data.question);
         setMatchedUsers(data.users || []);
+        setVoteResult(null);
+        setCanShowResult(false);
+      } else if (data.type === "voteResult") {
+        setVoteResult(data.result);
+        setCanShowResult(false);
+      } else if (data.type === "votesCompleted") {
+        setCanShowResult(true);
       }
     };
 
@@ -33,6 +42,14 @@ const BingoRoom: React.FC = () => {
   const spinRoulette = () => {
     if (socketRef.current) {
       socketRef.current.send(JSON.stringify({ type: "spinRoulette" }));
+      setVoteResult(null);
+      setCanShowResult(false);
+    }
+  };
+
+  const showResult = () => {
+    if (socketRef.current) {
+      socketRef.current.send(JSON.stringify({ type: "showResult" }));
     }
   };
 
@@ -87,6 +104,20 @@ const BingoRoom: React.FC = () => {
               )}
             </div>
           </div>
+          <button
+            onClick={showResult}
+            disabled={!canShowResult}
+            className={`mt-4 rounded-sm px-6 py-2 text-xs text-white shadow-custom ${
+              canShowResult ? "bg-blue" : "bg-gray"
+            }`}
+          >
+            結果を見る
+          </button>
+          {voteResult && (
+            <p className="mt-4 text-base font-bold text-blue">
+              最も票を集めたのは：{voteResult}
+            </p>
+          )}
         </div>
       </div>
     </div>

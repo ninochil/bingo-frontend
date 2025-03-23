@@ -9,16 +9,10 @@ const PlayerBingoPage: React.FC = () => {
   const [questions, setQuestions] = useState<string[]>([]);
   const [markedQuestions, setMarkedQuestions] = useState<string[]>([]);
 
-  // popup
-  const [isOpen, setIsOpen] = useState(false);
-  const openPopup = () => setIsOpen(true);
-  const closePopup = () => setIsOpen(false);
-
-  // ラジオボタンで誰が選択されてるか
-  const [selectedOption, setSelectedOption] = useState('option1');
-  const handleRadioChange = (value: string) => {
-    setSelectedOption(value);
-  };
+  // 投票モーダル制御
+  const [showVoteModal, setShowVoteModal] = useState(false);
+  const [matchedUsers, setMatchedUsers] = useState<string[]>([]);
+  const [votedUser, setVotedUser] = useState<string | null>(null);
 
   useEffect(() => {
     const socket = new WebSocket(WS_URL);
@@ -39,6 +33,17 @@ const PlayerBingoPage: React.FC = () => {
         setQuestions(data.questions);
       } else if (data.type === "markQuestion") {
         setMarkedQuestions((prev) => [...prev, data.question]);
+      } else if (data.type === "rouletteInfo") {
+        const selfName = sessionStorage.getItem("userName");
+        setMatchedUsers(data.users || []);
+        setVotedUser(null); // reset
+        if (!data.users.includes(selfName)) {
+          setShowVoteModal(true); // 回答者でなければ表示
+        }
+      } else if (data.type === "updateQuestion") {
+        setQuestions((prev) =>
+          prev.map((q) => (q === data.old ? data.new : q)),
+        );
       }
     };
 
@@ -51,16 +56,27 @@ const PlayerBingoPage: React.FC = () => {
     };
   }, []);
 
+  const submitVote = () => {
+    const userId = sessionStorage.getItem("userId");
+    if (socketRef.current && userId && votedUser) {
+      socketRef.current.send(
+        JSON.stringify({ type: "vote", userId, votedUser }),
+      );
+      setShowVoteModal(false);
+      setVotedUser(null);
+    }
+  };
+
   return (
     <div className="bg-green-200 flex h-screen items-center justify-center">
       <div className="text-center">
         <h1 className="mb-10 text-base">あなたのビンゴカード</h1>
-        <div className="inline-block rounded-lg bg-white p-4 shadow-lg mb-5">
+        <div className="mb-5 inline-block rounded-lg bg-white p-4 shadow-lg">
           <div className="grid grid-cols-3 gap-4">
             {questions.map((text, index) => (
               <div
                 key={index}
-                className={`flex h-[97px] w-[97px] items-center justify-center rounded-xs border-4 border-yellow p-2 text-center text-gray text-sm transition-all duration-500 ${
+                className={`flex h-[97px] w-[97px] items-center justify-center rounded-xs border-4 p-2 text-center text-sm text-gray transition-all duration-500 ${
                   markedQuestions.includes(text)
                     ? "border-yellow bg-yellow"
                     : "border-yellow-400 bg-white"
@@ -75,55 +91,41 @@ const PlayerBingoPage: React.FC = () => {
             ))}
           </div>
         </div>
-        <NewButton 
-          label="ポップアップを開く"
-          direction="forward"
-          onClick={openPopup}
-        />
       </div>
 
-      {isOpen && (
-        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
-          <div className="bg-white rounded-md p-8 w-[300px] text-center shadow-lg relative">
-            <div className="text-sm mb-5 text-gray">良かった人を投票してね！</div>
-            {/* TODO: ここに回答者リストの名前表示 */}
-            <div className="flex flex-col mx-3 gap-2 mb-6">
-              <RadioButton
-                label="もーすぎ"
-                value="option1"
-                checked={selectedOption === 'option1'}
-                onChange={handleRadioChange}
-              />
-              <RadioButton
-                label="かまの"
-                value="option2"
-                checked={selectedOption === 'option2'}
-                onChange={handleRadioChange}
-              />
-              <RadioButton
-                label="じん"
-                value="option3"
-                checked={selectedOption === 'option3'}
-                onChange={handleRadioChange}
-              />
+      {/* 投票モーダル */}
+      {showVoteModal && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
+          <div className="relative w-[300px] rounded-md bg-white p-6 text-center shadow-lg">
+            <div className="mb-4 text-sm text-gray">
+              良かったと思う回答者を選んでください
             </div>
-
+            <div className="mb-6 flex flex-col gap-2">
+              {matchedUsers.map((user, idx) => (
+                <RadioButton
+                  key={idx}
+                  label={user}
+                  value={user}
+                  checked={votedUser === user}
+                  onChange={(val) => setVotedUser(val)}
+                />
+              ))}
+            </div>
             <NewButton
               label="投票する"
               direction="forward"
-              onClick={closePopup}
+              onClick={submitVote}
+              disabled={!votedUser}
             />
           </div>
         </div>
       )}
-
     </div>
   );
 };
 
-// ✅ 長さに応じてフォントサイズを調整（例: 長文は少し小さく）
 const calculateFontSize = (text: string): number => {
-  const maxLength = 8;
+  const maxLength = 20;
   return text.length > maxLength ? 1.2 - (text.length - maxLength) * 0.1 : 1.2;
 };
 
